@@ -1,0 +1,637 @@
+typescript
+// ============================================
+// 1. TYPES & INTERFACES
+// ============================================
+
+export type VideoFormat = "short" | "long" | "hybrid" | "live";
+export type VideoGoal = 
+  | "awareness" 
+  | "education" 
+  | "conversion" 
+  | "loyalty" 
+  | "virality";
+export type VideoIndustry =
+  | "ecommerce"
+  | "restaurant"
+  | "saas"
+  | "fitness"
+  | "b2b"
+  | "education"
+  | "beauty"
+  | "realestate"
+  | "other";
+export type VideoStatus = "draft" | "ready" | "published" | "archived";
+export type Difficulty = "easy" | "medium" | "advanced";
+
+export interface VideoIdea {
+  id: string;
+  title: string;
+  description: string;
+  format: VideoFormat;
+  goals: VideoGoal[];
+  industries: VideoIndustry[];
+  durationSeconds: number;
+  difficulty: Difficulty;
+  scriptTemplate?: string;
+  exampleUrl?: string;
+  tags: string[];
+  createdAt: Date;
+  status: VideoStatus;
+  hasBeenProduced: boolean;
+  performanceScore?: number; // 0-100
+}
+
+export interface VideoProductionChecklist {
+  preProduction: string[];
+  production: string[];
+  postProduction: string[];
+  distribution: string[];
+}
+
+export interface VideoAnalytics {
+  views: number;
+  likes: number;
+  shares: number;
+  saves: number;
+  comments: number;
+  completionRate: number; // 0-100
+  ctr?: number; // click-through rate
+}
+
+export interface VideoCampaign {
+  id: string;
+  ideaId: string;
+  title: string;
+  publishedDate: Date;
+  platform: "tiktok" | "instagram" | "youtube" | "linkedin" | "facebook" | "website";
+  url: string;
+  analytics: VideoAnalytics;
+  notes: string;
+}
+
+// ============================================
+// 2. COLLECTION D'IDÉES VIDÉO (données mock + réelles)
+// ============================================
+
+export const videoIdeasCollection: VideoIdea[] = [
+  {
+    id: "vid-001",
+    title: "Coulisses de l'entreprise",
+    description: "Montrez l'envers du décor, votre équipe au travail, l'ambiance.",
+    format: "short",
+    goals: ["awareness", "loyalty"],
+    industries: ["ecommerce", "saas", "b2b", "other"],
+    durationSeconds: 45,
+    difficulty: "easy",
+    scriptTemplate: "Voici un extrait de notre quotidien...",
+    tags: ["authenticité", "team", "culture"],
+    createdAt: new Date("2025-01-10"),
+    status: "ready",
+    hasBeenProduced: false,
+  },
+  {
+    id: "vid-002",
+    title: "Tutoriel produit pas à pas",
+    description: "Apprenez à vos clients à utiliser votre produit efficacement.",
+    format: "long",
+    goals: ["education", "conversion"],
+    industries: ["saas", "ecommerce", "education", "beauty"],
+    durationSeconds: 180,
+    difficulty: "medium",
+    scriptTemplate: "1. Introduction du problème, 2. Démo, 3. Résumé",
+    tags: ["tutorial", "howto", "valeur"],
+    createdAt: new Date("2025-01-15"),
+    status: "ready",
+    hasBeenProduced: false,
+  },
+  {
+    id: "vid-003",
+    title: "Témoignage client authentique",
+    description: "Un client satisfait raconte son histoire et ses résultats.",
+    format: "short",
+    goals: ["conversion", "loyalty"],
+    industries: ["ecommerce", "saas", "fitness", "realestate"],
+    durationSeconds: 60,
+    difficulty: "medium",
+    scriptTemplate: "Avant / Après + conseil final",
+    tags: ["socialproof", "testimonial", "trust"],
+    createdAt: new Date("2025-01-20"),
+    status: "published",
+    hasBeenProduced: true,
+    performanceScore: 85,
+  },
+  {
+    id: "vid-004",
+    title: "Avant / Après transformation",
+    description: "Montrez visuellement l'impact de votre solution.",
+    format: "short",
+    goals: ["conversion", "virality"],
+    industries: ["fitness", "beauty", "realestate", "ecommerce"],
+    durationSeconds: 30,
+    difficulty: "easy",
+    tags: ["transformation", "results", "beforeafter"],
+    createdAt: new Date("2025-01-25"),
+    status: "draft",
+    hasBeenProduced: false,
+  },
+  {
+    id: "vid-005",
+    title: "Réponse aux objections fréquentes",
+    description: "Pourquoi les gens hésitent et pourquoi ils ont tort.",
+    format: "medium",
+    goals: ["conversion", "education"],
+    industries: ["saas", "b2b", "realestate"],
+    durationSeconds: 90,
+    difficulty: "advanced",
+    scriptTemplate: "Objection → Réponse claire → Preuve",
+    tags: ["objections", "sales", "conviction"],
+    createdAt: new Date("2025-02-01"),
+    status: "ready",
+    hasBeenProduced: false,
+  },
+  {
+    id: "vid-006",
+    title: "Challenge 7 jours",
+    description: "Lancez un défi à votre communauté pour créer de l'engagement.",
+    format: "hybrid",
+    goals: ["virality", "loyalty"],
+    industries: ["fitness", "beauty", "education"],
+    durationSeconds: 60,
+    difficulty: "advanced",
+    tags: ["challenge", "community", "engagement"],
+    createdAt: new Date("2025-02-05"),
+    status: "draft",
+    hasBeenProduced: false,
+  },
+];
+
+// ============================================
+// 3. CHECKLISTS PRÉDÉFINIES
+// ============================================
+
+export const defaultChecklist: VideoProductionChecklist = {
+  preProduction: [
+    "Définir l'objectif principal de la vidéo",
+    "Rédiger un script ou un storyboard",
+    "Préparer le matériel (caméra, micro, lumière)",
+    "Choisir le lieu de tournage",
+    "Préparer les accessoires / produits",
+    "Tester le son et la lumière",
+  ],
+  production: [
+    "Cadrer correctement (yeux au niveau caméra)",
+    "Parler clairement et naturellement",
+    "Varier les plans (large, moyen, serré)",
+    "Capturer des séquences B-roll",
+    "Vérifier régulièrement le son",
+  ],
+  postProduction: [
+    "Monter les séquences inutiles",
+    "Ajouter des sous-titres (accessibilité + SEO)",
+    "Ajouter une musique d'ambiance (libre de droits)",
+    "Ajouter un call-to-action visuel",
+    "Créer une miniature attractive",
+    "Exporter en format adapté à la plateforme",
+  ],
+  distribution: [
+    "Titre accrocheur avec mot-clé principal",
+    "Description détaillée (200+ caractères)",
+    "Hashtags pertinents (3-5 spécifiques)",
+    "Programmer la publication au bon moment",
+    "Partager sur d'autres réseaux",
+    "Répondre aux premiers commentaires",
+  ],
+};
+
+// ============================================
+// 4. SERVICE DE GESTION DES IDÉES VIDÉO
+// ============================================
+
+export class VideoMarketingLibrary {
+  private ideas: VideoIdea[];
+  private campaigns: VideoCampaign[];
+
+  constructor(initialIdeas: VideoIdea[] = []) {
+    this.ideas = [...initialIdeas];
+    this.campaigns = [];
+  }
+
+  // Ajouter une nouvelle idée
+  addIdea(idea: Omit<VideoIdea, "id" | "createdAt">): VideoIdea {
+    const newIdea: VideoIdea = {
+      ...idea,
+      id: `vid-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,
+      createdAt: new Date(),
+      status: "draft",
+      hasBeenProduced: false,
+    };
+    this.ideas.push(newIdea);
+    return newIdea;
+  }
+
+  // Récupérer toutes les idées
+  getAllIdeas(): VideoIdea[] {
+    return [...this.ideas];
+  }
+
+  // Filtrer par objectif
+  filterByGoal(goal: VideoGoal): VideoIdea[] {
+    return this.ideas.filter(idea => idea.goals.includes(goal));
+  }
+
+  // Filtrer par secteur
+  filterByIndustry(industry: VideoIndustry): VideoIdea[] {
+    return this.ideas.filter(idea => idea.industries.includes(industry));
+  }
+
+  // Filtrer par format
+  filterByFormat(format: VideoFormat): VideoIdea[] {
+    return this.ideas.filter(idea => idea.format === format);
+  }
+
+  // Filtrer par statut
+  filterByStatus(status: VideoStatus): VideoIdea[] {
+    return this.ideas.filter(idea => idea.status === status);
+  }
+
+  // Recherche par mots-clés (titre, description, tags)
+  search(keyword: string): VideoIdea[] {
+    const lowerKeyword = keyword.toLowerCase();
+    return this.ideas.filter(
+      idea =>
+        idea.title.toLowerCase().includes(lowerKeyword) ||
+        idea.description.toLowerCase().includes(lowerKeyword) ||
+        idea.tags.some(tag => tag.toLowerCase().includes(lowerKeyword))
+    );
+  }
+
+  // Obtenir une idée aléatoire (pour inspiration)
+  getRandomIdea(filters?: {
+    goals?: VideoGoal[];
+    industries?: VideoIndustry[];
+    difficulty?: Difficulty;
+  }): VideoIdea | null {
+    let filtered = [...this.ideas];
+    if (filters?.goals && filters.goals.length > 0) {
+      filtered = filtered.filter(idea =>
+        filters.goals!.some(g => idea.goals.includes(g))
+      );
+    }
+    if (filters?.industries && filters.industries.length > 0) {
+      filtered = filtered.filter(idea =>
+        filters.industries!.some(ind => idea.industries.includes(ind))
+      );
+    }
+    if (filters?.difficulty) {
+      filtered = filtered.filter(idea => idea.difficulty === filters.difficulty);
+    }
+    if (filtered.length === 0) return null;
+    const randomIndex = Math.floor(Math.random() * filtered.length);
+    return filtered[randomIndex];
+  }
+
+  // Marquer une idée comme produite
+  markAsProduced(id: string, performanceScore?: number): boolean {
+    const idea = this.ideas.find(i => i.id === id);
+    if (!idea) return false;
+    idea.hasBeenProduced = true;
+    idea.status = "published";
+    if (performanceScore !== undefined) {
+      idea.performanceScore = Math.min(100, Math.max(0, performanceScore));
+    }
+    return true;
+  }
+
+  // Mettre à jour le statut
+  updateStatus(id: string, status: VideoStatus): boolean {
+    const idea = this.ideas.find(i => i.id === id);
+    if (!idea) return false;
+    idea.status = status;
+    return true;
+  }
+
+  // Supprimer une idée
+  deleteIdea(id: string): boolean {
+    const index = this.ideas.findIndex(i => i.id === id);
+    if (index === -1) return false;
+    this.ideas.splice(index, 1);
+    return true;
+  }
+
+  // Obtenir les statistiques de la bibliothèque
+  getStats() {
+    const total = this.ideas.length;
+    const produced = this.ideas.filter(i => i.hasBeenProduced).length;
+    const byGoal: Record<VideoGoal, number> = {
+      awareness: 0,
+      education: 0,
+      conversion: 0,
+      loyalty: 0,
+      virality: 0,
+    };
+    const byFormat: Record<VideoFormat, number> = {
+      short: 0,
+      long: 0,
+      hybrid: 0,
+      live: 0,
+    };
+    const byDifficulty: Record<Difficulty, number> = {
+      easy: 0,
+      medium: 0,
+      advanced: 0,
+    };
+
+    for (const idea of this.ideas) {
+      for (const goal of idea.goals) {
+        byGoal[goal]++;
+      }
+      byFormat[idea.format]++;
+      byDifficulty[idea.difficulty]++;
+    }
+
+    const avgPerformance = this.ideas
+      .filter(i => i.performanceScore !== undefined)
+      .reduce((sum, i) => sum + (i.performanceScore || 0), 0) / 
+      (this.ideas.filter(i => i.performanceScore !== undefined).length || 1);
+
+    return {
+      total,
+      produced,
+      productionRate: total > 0 ? (produced / total) * 100 : 0,
+      byGoal,
+      byFormat,
+      byDifficulty,
+      averagePerformanceScore: Math.round(avgPerformance),
+    };
+  }
+
+  // Exporter la collection en JSON
+  exportToJSON(): string {
+    return JSON.stringify(
+      {
+        ideas: this.ideas,
+        campaigns: this.campaigns,
+        exportedAt: new Date().toISOString(),
+      },
+      null,
+      2
+    );
+  }
+
+  // Importer depuis JSON
+  importFromJSON(json: string): void {
+    try {
+      const data = JSON.parse(json);
+      if (data.ideas) this.ideas = data.ideas;
+      if (data.campaigns) this.campaigns = data.campaigns;
+    } catch (error) {
+      console.error("Erreur d'import JSON", error);
+    }
+  }
+}
+
+// ============================================
+// 5. GESTIONNAIRE DE CAMPAGNES VIDÉO
+// ============================================
+
+export class VideoCampaignManager {
+  private campaigns: VideoCampaign[];
+
+  constructor(initialCampaigns: VideoCampaign[] = []) {
+    this.campaigns = [...initialCampaigns];
+  }
+
+  addCampaign(campaign: Omit<VideoCampaign, "id">): VideoCampaign {
+    const newCampaign: VideoCampaign = {
+      ...campaign,
+      id: `camp-${Date.now()}-${Math.random().toString(36).substr(2, 6)}`,
+    };
+    this.campaigns.push(newCampaign);
+    return newCampaign;
+  }
+
+  getAllCampaigns(): VideoCampaign[] {
+    return [...this.campaigns];
+  }
+
+  getCampaignsByIdea(ideaId: string): VideoCampaign[] {
+    return this.campaigns.filter(c => c.ideaId === ideaId);
+  }
+
+  getBestPerformingCampaign(limit: number = 5): VideoCampaign[] {
+    return [...this.campaigns]
+      .sort((a, b) => (b.analytics.views || 0) - (a.analytics.views || 0))
+      .slice(0, limit);
+  }
+
+  getTotalViews(): number {
+    return this.campaigns.reduce((sum, c) => sum + (c.analytics.views || 0), 0);
+  }
+
+  getAverageEngagementRate(): number {
+    if (this.campaigns.length === 0) return 0;
+    const totalEngagement = this.campaigns.reduce(
+      (sum, c) => sum + (c.analytics.likes + c.analytics.shares + c.analytics.comments),
+      0
+    );
+    const totalViews = this.getTotalViews();
+    return totalViews > 0 ? (totalEngagement / totalViews) * 100 : 0;
+  }
+}
+
+// ============================================
+// 6. PLANIFICATEUR DE CONTENU (CALENDRIER)
+// ============================================
+
+export interface ContentSlot {
+  date: Date;
+  ideaId: string;
+  platform: VideoCampaign["platform"];
+  status: "planned" | "recorded" | "edited" | "published";
+  notes?: string;
+}
+
+export class ContentPlanner {
+  private slots: ContentSlot[];
+
+  constructor() {
+    this.slots = [];
+  }
+
+  addSlot(slot: Omit<ContentSlot, "status">): ContentSlot {
+    const newSlot: ContentSlot = {
+      ...slot,
+      status: "planned",
+    };
+    this.slots.push(newSlot);
+    return newSlot;
+  }
+
+  updateSlotStatus(date: Date, status: ContentSlot["status"]): boolean {
+    const slot = this.slots.find(s => s.date.getTime() === date.getTime());
+    if (!slot) return false;
+    slot.status = status;
+    return true;
+  }
+
+  getUpcomingSlots(limit: number = 10): ContentSlot[] {
+    const now = new Date();
+    return this.slots
+      .filter(slot => slot.date >= now && slot.status !== "published")
+      .sort((a, b) => a.date.getTime() - b.date.getTime())
+      .slice(0, limit);
+  }
+
+  getPublishedSlots(): ContentSlot[] {
+    return this.slots.filter(slot => slot.status === "published");
+  }
+
+  generateWeeklyPlan(startDate: Date, ideaIds: string[]): ContentSlot[] {
+    const weekSlots: ContentSlot[] = [];
+    const platforms: VideoCampaign["platform"][] = [
+      "tiktok",
+      "instagram",
+      "youtube",
+      "linkedin",
+    ];
+
+    for (let i = 0; i < 7; i++) {
+      const currentDate = new Date(startDate);
+      currentDate.setDate(startDate.getDate() + i);
+      const ideaId = ideaIds[i % ideaIds.length];
+      const platform = platforms[i % platforms.length];
+
+      weekSlots.push({
+        date: currentDate,
+        ideaId,
+        platform,
+        status: "planned",
+      });
+    }
+    return weekSlots;
+  }
+}
+
+// ============================================
+// 7. EXEMPLE D'UTILISATION
+// ============================================
+
+// Initialisation de la bibliothèque avec les idées par défaut
+const myVideoLibrary = new VideoMarketingLibrary(videoIdeasCollection);
+const myCampaignManager = new VideoCampaignManager();
+const myPlanner = new ContentPlanner();
+
+// Exemple : Rechercher des idées pour le secteur SaaS
+const saasIdeas = myVideoLibrary.filterByIndustry("saas");
+console.log("Idées pour SaaS :", saasIdeas.map(i => i.title));
+
+// Exemple : Obtenir une idée aléatoire facile pour conversion
+const randomIdea = myVideoLibrary.getRandomIdea({
+  goals: ["conversion"],
+  difficulty: "easy",
+});
+console.log("Idée aléatoire pour conversion :", randomIdea?.title);
+
+// Exemple : Statistiques de la bibliothèque
+const stats = myVideoLibrary.getStats();
+console.log("Statistiques :", stats);
+
+// Exemple : Marquer une idée comme produite
+myVideoLibrary.markAsProduced("vid-001", 92);
+
+// Exemple : Ajouter une campagne
+myCampaignManager.addCampaign({
+  ideaId: "vid-003",
+  title: "Témoignage client - Campagne janvier",
+  publishedDate: new Date("2025-02-10"),
+  platform: "instagram",
+  url: "https://instagram.com/p/exemple",
+  analytics: {
+    views: 12500,
+    likes: 2340,
+    shares: 567,
+    saves: 890,
+    comments: 123,
+    completionRate: 78,
+    ctr: 4.2,
+  },
+  notes: "Très bon engagement sur les stories",
+});
+
+// Exemple : Exporter la collection
+const exported = myVideoLibrary.exportToJSON();
+console.log("Export JSON (extrait) :", exported.substring(0, 200) + "...");
+
+// Exemple : Générer un planning hebdomadaire
+const weeklyPlan = myPlanner.generateWeeklyPlan(
+  new Date("2025-03-01"),
+  ["vid-001", "vid-002", "vid-004"]
+);
+console.log("Planning hebdomadaire :", weeklyPlan);
+
+// ============================================
+// 8. FONCTIONS UTILITAIRES ADDITIONNELLES
+// ============================================
+
+// Suggérer des idées basées sur les performances passées
+export function suggestImprovements(
+  library: VideoMarketingLibrary,
+  campaignManager: VideoCampaignManager
+): string[] {
+  const suggestions: string[] = [];
+  const stats = library.getStats();
+
+  if (stats.productionRate < 30) {
+    suggestions.push("🎬 Produis plus de vidéos : seulement " + stats.productionRate.toFixed(0) + "% de tes idées sont réalisées.");
+  }
+
+  const avgPerf = stats.averagePerformanceScore;
+  if (avgPerf < 70) {
+    suggestions.push("📈 Améliore la qualité : score moyen de " + avgPerf + "%. Travaille sur l'accroche et le storytelling.");
+  }
+
+  const topGoal = Object.entries(stats.byGoal).sort((a, b) => b[1] - a[1])[0];
+  if (topGoal) {
+    suggestions.push(`🎯 Ta catégorie dominante est "${topGoal[0]}" avec ${topGoal[1]} idées. Diversifie !`);
+  }
+
+  const totalViews = campaignManager.getTotalViews();
+  if (totalViews < 10000) {
+    suggestions.push("📢 Augmente la distribution : partage tes vidéos sur plus de plateformes.");
+  }
+
+  return suggestions;
+}
+
+// Générer un prompt pour ChatGPT / IA (aide au script)
+export function generateScriptPrompt(idea: VideoIdea): string {
+  return `
+    Génère un script vidéo pour :
+    Titre : ${idea.title}
+    Description : ${idea.description}
+    Format : ${idea.format} (${idea.durationSeconds} secondes)
+    Objectifs : ${idea.goals.join(", ")}
+    Tags : ${idea.tags.join(", ")}
+    
+    Structure recommandée :
+    1. Hook (0-5s)
+    2. Problème (5-15s)
+    3. Solution (15-45s)
+    4. Preuve sociale (45-55s)
+    5. Call to action (55-60s)
+  `;
+}
+
+// ============================================
+// EXPORT PRINCIPAL
+// ============================================
+
+export default {
+  VideoMarketingLibrary,
+  VideoCampaignManager,
+  ContentPlanner,
+  videoIdeasCollection,
+  defaultChecklist,
+  suggestImprovements,
+  generateScriptPrompt,
+};

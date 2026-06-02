@@ -1,0 +1,594 @@
+html
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Vidéo Marketing | Créez l'engagement visuel</title>
+  <!-- Google Fonts + Font Awesome pour une touche moderne -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #fafcff;
+      color: #111827;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* Navbar moderne */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+      z-index: 1000;
+      padding: 1rem 2rem;
+      transition: all 0.2s ease;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #1E2A5E, #4A3F7C);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .logo i {
+      background: none;
+      color: #3b2e5e;
+      margin-right: 6px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #1e293b;
+      transition: color 0.2s;
+      font-size: 1rem;
+    }
+
+    .nav-links a:hover {
+      color: #6366f1;
+    }
+
+    /* Hero section avec vidéo d'arrière-plan ou image? On utilise une vidéo démo en loop */
+    .hero {
+      margin-top: 70px;
+      position: relative;
+      background: linear-gradient(107deg, #0B1120 0%, #19233c 100%);
+      color: white;
+      overflow: hidden;
+      padding: 5rem 2rem;
+    }
+
+    .hero-background-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.25;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .hero-text {
+      flex: 1;
+      min-width: 260px;
+    }
+
+    .hero-text h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, #ffffff, #cbd5ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      color: #e2e8f0;
+    }
+
+    .cta-btn {
+      background: #6366f1;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      box-shadow: 0 8px 20px rgba(99,102,241,0.3);
+    }
+
+    .cta-btn:hover {
+      background: #4f46e5;
+      transform: translateY(-3px);
+    }
+
+    .hero-video-card {
+      flex: 1;
+      background: rgba(0,0,0,0.3);
+      border-radius: 32px;
+      backdrop-filter: blur(4px);
+      padding: 0.8rem;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.4);
+    }
+
+    .hero-video-card video {
+      width: 100%;
+      border-radius: 24px;
+      display: block;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Section des bénéfices / statistiques */
+    .stats-section {
+      max-width: 1280px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .stat-item {
+      flex: 1;
+      background: white;
+      border-radius: 2rem;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.05);
+      transition: all 0.3s;
+      border: 1px solid #eef2ff;
+    }
+
+    .stat-item:hover {
+      transform: translateY(-6px);
+      border-color: #cbd5e1;
+      box-shadow: 0 25px 40px -12px rgba(0,0,0,0.12);
+    }
+
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #4f46e5;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-weight: 600;
+      color: #1e293b;
+      font-size: 1.2rem;
+    }
+
+    /* Vidéo Marketing Showcase */
+    .showcase {
+      background: #f1f5f9;
+      padding: 5rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #0f172a;
+    }
+
+    .section-sub {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 3rem auto;
+      color: #475569;
+    }
+
+    .video-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: 28px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px -5px rgba(0,0,0,0.08);
+    }
+
+    .video-card:hover {
+      transform: scale(1.02);
+      box-shadow: 0 25px 35px -12px rgba(0,0,0,0.15);
+    }
+
+    .video-wrapper {
+      position: relative;
+      background: #000;
+    }
+
+    .video-wrapper video {
+      width: 100%;
+      display: block;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .video-info {
+      padding: 1.5rem;
+    }
+
+    .video-info h3 {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .badge {
+      background: #e0e7ff;
+      color: #4338ca;
+      padding: 0.25rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 0.5rem;
+    }
+
+    /* CTA final */
+    .cta-section {
+      text-align: center;
+      padding: 4rem 2rem;
+      background: linear-gradient(120deg, #1e293b, #0f172a);
+      color: white;
+    }
+
+    .cta-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta-section .cta-btn {
+      background: #f97316;
+      margin-top: 1rem;
+      box-shadow: none;
+    }
+
+    .cta-section .cta-btn:hover {
+      background: #ea580c;
+    }
+
+    footer {
+      background: #0b1120;
+      color: #94a3b8;
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    /* Animations au scroll (reveal) */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .fade-up.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 780px) {
+      .hero-text h1 {
+        font-size: 2.2rem;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .navbar {
+        padding: 0.8rem 1rem;
+      }
+      .hero-content {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-container">
+    <div class="logo">
+      <i class="fas fa-play-circle"></i> Vidéo<span style="color:#4f46e5">Market</span>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#hero">Accueil</a></li>
+      <li><a href="#stats">Impact</a></li>
+      <li><a href="#showcase">Stratégies</a></li>
+      <li><a href="#contact" id="contactNav">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- Hero Section avec vidéo embarquée -->
+<section id="hero" class="hero">
+  <video class="hero-background-video" autoplay muted loop playsinline>
+    <source src="https://storage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+    Votre navigateur ne supporte pas la vidéo.
+  </video>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1>Révolutionnez votre <br> <span style="color:#a5b4fc;">Marketing Vidéo</span></h1>
+      <p>Augmentez l'engagement, générez des conversions et créez des histoires qui marquent. 82% du trafic web sera de la vidéo.</p>
+      <button class="cta-btn" id="mainCtaBtn">Démarrer une campagne <i class="fas fa-arrow-right"></i></button>
+    </div>
+    <div class="hero-video-card">
+      <video autoplay muted loop playsinline poster="https://via.placeholder.com/640x360?text=Video+Marketing">
+        <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WhatCar.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- Section chiffres clés (stats) -->
+<div id="stats" class="stats-section fade-up">
+  <div class="stat-item">
+    <div class="stat-number">+94%</div>
+    <div class="stat-label">de compréhension du message</div>
+    <i class="fas fa-chart-line" style="margin-top: 12px; color:#a5b4fc;"></i>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">86%</div>
+    <div class="stat-label">des entreprises utilisent la vidéo</div>
+    <i class="fas fa-building" style="margin-top: 12px; color:#a5b4fc;"></i>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">5x</div>
+    <div class="stat-label">plus d'engagement vs images</div>
+    <i class="fas fa-share-alt" style="margin-top: 12px; color:#a5b4fc;"></i>
+  </div>
+</div>
+
+<!-- Section Showcase Vidéo Marketing - exemples de stratégies -->
+<section id="showcase" class="showcase">
+  <div class="section-title">🎬 Contenu vidéo qui convertit</div>
+  <div class="section-sub">Des formats puissants pour chaque étape du tunnel de vente : explication, démo, témoignage.</div>
+  <div class="video-grid">
+    <!-- Carte vidéo 1 : Tutoriel / Explication -->
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <video controls preload="metadata" poster="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=600">
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-info">
+        <h3>Vidéo explicative produit</h3>
+        <p>Augmentez la rétention client grâce à des animations claires. +40% de mémorisation.</p>
+        <span class="badge"><i class="fas fa-chart-simple"></i> Taux de conversion +34%</span>
+      </div>
+    </div>
+    <!-- Carte vidéo 2 : Témoignage inspirant -->
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <video controls preload="metadata" poster="https://images.pexels.com/photos/3761509/pexels-photo-3761509.jpeg?auto=compress&cs=tinysrgb&w=600">
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-info">
+        <h3>Témoignages clients authentiques</h3>
+        <p>La preuve sociale par la vidéo renforce la confiance et accélère la décision d'achat.</p>
+        <span class="badge"><i class="fas fa-star"></i> Confiance +72%</span>
+      </div>
+    </div>
+    <!-- Carte vidéo 3 : Réseaux sociaux / court format -->
+    <div class="video-card fade-up">
+      <div class="video-wrapper">
+        <video controls preload="metadata" poster="https://images.pexels.com/photos/3184338/pexels-photo-3184338.jpeg?auto=compress&cs=tinysrgb&w=600">
+          <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFunflies.mp4" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-info">
+        <h3>Shorts / Reels / TikTok</h3>
+        <p>Captez l'attention en 5 secondes. Idéal pour le brand awareness et viralité.</p>
+        <span class="badge"><i class="fab fa-tiktok"></i> Engagement x3</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section avec astuces vidéo marketing et CTA -->
+<div id="contact" class="cta-section">
+  <h2>Prêt à lancer votre stratégie vidéo ?</h2>
+  <p>Obtenez un audit gratuit de votre contenu vidéo et boostez vos résultats.</p>
+  <button class="cta-btn" id="finalCtaBtn"><i class="fas fa-calendar-check"></i> Réserver un appel stratégique</button>
+</div>
+
+<footer>
+  <p>© 2025 VidéoMarket — Transformez votre audience avec la puissance de la vidéo. <br> Exemples de vidéos: extraits libres de droits (sample videos).</p>
+</footer>
+
+<script>
+  // Animation au scroll (reveal.js like)
+  const fadeElements = document.querySelectorAll('.fade-up');
+  
+  function checkReveal() {
+    for (let el of fadeElements) {
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+      if (rect.top < windowHeight - 100) {
+        el.classList.add('revealed');
+      }
+    }
+  }
+  
+  window.addEventListener('scroll', checkReveal);
+  window.addEventListener('load', checkReveal);
+  
+  // Smooth scroll pour la navigation
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId === "#" || targetId === "") return;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        e.preventDefault();
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+  
+  // CTA principal et final -> alert marketing personnalisée
+  const mainCta = document.getElementById('mainCtaBtn');
+  const finalCta = document.getElementById('finalCtaBtn');
+  const contactNav = document.getElementById('contactNav');
+  
+  function showMarketingMessage() {
+    alert("🎥 Merci pour votre intérêt ! Lancez dès maintenant votre campagne vidéo marketing. Un expert vous contactera sous 24h (démo exclusive).");
+  }
+  
+  if (mainCta) mainCta.addEventListener('click', showMarketingMessage);
+  if (finalCta) finalCta.addEventListener('click', showMarketingMessage);
+  if (contactNav) {
+    contactNav.addEventListener('click', function(e) {
+      e.preventDefault();
+      const contactSection = document.querySelector('#contact');
+      if(contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        alert("🎯 Remplissez le formulaire de contact virtuel ou appelez-nous. Stratégie vidéo personnalisée !");
+      }, 500);
+    });
+  }
+  
+  // Option pour rendre interactif les videos cards (optionnel mais sympa)
+  const allVideos = document.querySelectorAll('.video-card video');
+  // S'assurer que les vidéos ne jouent pas toutes en même temps hors écran par défaut on laisse l'utilisateur décider
+  // On ajoute un gestionnaire simple pour mettre en pause les autres quand on en joue une (optional)
+  allVideos.forEach(video => {
+    video.addEventListener('play', function() {
+      allVideos.forEach(other => {
+        if (other !== video && !other.paused) {
+          other.pause();
+        }
+      });
+    });
+  });
+  
+  // Légère modification sur hero video card pour la rendre plus dynamique (assurer le mute pour autoplay)
+  const heroVid = document.querySelector('.hero-video-card video');
+  if(heroVid) {
+    heroVid.muted = true;
+    heroVid.play().catch(e => console.log("Auto-play bloqué, interaction requise"));
+  }
+  const bgVideo = document.querySelector('.hero-background-video');
+  if(bgVideo) bgVideo.play().catch(e=>console.log("bg video muted ok"));
+  
+  // Affichage dynamique d'une notification pour les statistiques (petite animation)
+  const statNumbers = document.querySelectorAll('.stat-number');
+  function animateNumbers() {
+    statNumbers.forEach(el => {
+      const finalText = el.innerText;
+      const rawValue = parseFloat(finalText);
+      if (isNaN(rawValue)) return;
+      let current = 0;
+      const increment = Math.ceil(rawValue / 40);
+      const updateNumber = () => {
+        current += increment;
+        if(current >= rawValue) {
+          el.innerText = finalText;
+          return;
+        }
+        if(finalText.includes('%')) {
+          el.innerText = current + '%';
+        } else if(finalText.includes('x')) {
+          el.innerText = current + 'x';
+        } else {
+          el.innerText = current;
+        }
+        requestAnimationFrame(() => setTimeout(updateNumber, 20));
+      };
+      const observer = new IntersectionObserver((entries) => {
+        if(entries[0].isIntersecting) {
+          updateNumber();
+          observer.disconnect();
+        }
+      }, { threshold: 0.4 });
+      observer.observe(el);
+    });
+  }
+  animateNumbers();
+  
+  // petit effet de scroll pour navbar
+  let lastScroll = 0;
+  window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.navbar');
+    const currentScroll = window.pageYOffset;
+    if (currentScroll > 80) {
+      navbar.style.background = 'rgba(255,255,255,0.98)';
+      navbar.style.boxShadow = '0 8px 25px rgba(0,0,0,0.05)';
+    } else {
+      navbar.style.background = 'rgba(255,255,255,0.92)';
+      navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.03)';
+    }
+    lastScroll = currentScroll;
+  });
+  
+  // petite amélioration : le titre dynamique selon l'heure
+  const heroTitle = document.querySelector('.hero-text h1');
+  if(heroTitle && new Date().getHours() < 12) {
+    // on ne modifie pas l'intégrité, simple clin d'oeil
+    console.log("Good morning, prêt à booster votre vidéo marketing ?");
+  }
+</script>
+</body>
+</html>
+
